@@ -10,7 +10,7 @@ from inicio.models import Auto
 
 def inicio(request):
     # return HttpResponse("<h1>Estoy en el inicio</h1>")
-    return render(request, 'index.html')
+    return render(request, 'inicio/index.html')
 
 
 def saludo(request,nombre,apellido):
