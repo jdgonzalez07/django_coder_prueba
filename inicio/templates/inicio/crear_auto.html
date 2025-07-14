@@ -1,12 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Se creó el auto {{auto1.marca}} {{auto1.modelo}}</h1>
-    
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title_text %}
+  Crear auto
+{% endblock %}
+{% block h1_text %}
+  Crear auto
+{% endblock %}
+
+{% block main %}
+  <form action={% url "inicio:crear_auto"%} method="POST">
+    {% csrf_token %}
+    <input type="text" name="marca" placeholder="Marca" />
+    <input type="text" name="modelo" placeholder="Modelo" />
+
+    <input type="submit" value="Crear" />
+    {% comment %} <button>Crear</button> {% endcomment %}
+  </form>
+{% endblock %}

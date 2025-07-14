@@ -90,8 +90,20 @@ def condicion_y_bucle(request):
     return render(request,'subcarpeta/condicion_y_bucle.html',{"listado_de_numeros":[1,2,4,5,33,2,4,5,3]})
 
 
-def crear_auto(request, marca, modelo):
+def crear_auto(request):
     
-    auto1 = Auto(marca=marca, modelo=modelo)
-    auto1.save()
-    return render(request, 'inicio/crear_auto.html',{'auto1':auto1})
+    print("###################################")
+    print("###################################")
+    print(request.GET)
+    print("###################################")
+    print("###################################")
+    print(request.POST)
+    
+    if request.GET == 'POST':
+        auto1 = Auto(marca=request.POST['marca'], modelo=request.POST['modelo'])
+        auto1.save()
+        
+        return render(request, 'inicio/creacion_finalizada.html',{'auto'})
+        
+    return render(request, 'inicio/crear_auto.html',{})
+    

@@ -11,5 +11,5 @@ urlpatterns = [
     # path('saludo/<str:nombre>/<str:apellido>/', saludo_con_cargador),
     path('saludo/<str:nombre>/<str:apellido>/', saludo_con_render, name='saludo_template'),
     path('template-prueba/', condicion_y_bucle, name='template_prueba'),
-    path('auto/crear/<str:marca>/<str:modelo>', crear_auto )
+    path('auto/crear', crear_auto, name = 'crear_auto' )
 ]
