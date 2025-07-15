@@ -7,11 +7,16 @@
 {% endblock %}
 
 {% block main %}
-  <form action={% url "inicio:crear_auto"%} method="POST">
+  <form action={% url "inicio:crear_auto" %} method="POST">
     {% csrf_token %}
-    <input type="text" name="marca" placeholder="Marca" />
-    <input type="text" name="modelo" placeholder="Modelo" />
 
+    {% comment %}
+    # SIN FORMULARIO DE DJANGO
+    <input type="text" name="marca" placeholder="Marca" />
+    <input type="text" name="modelo" placeholder="Modelo" /> {% endcomment %}
+    
+    {% comment %} # CON FORMULARIO DE DJANGO # FormularioCrearAuto {% endcomment %}
+    {{ formulario }}
     <input type="submit" value="Crear" />
     {% comment %} <button>Crear</button> {% endcomment %}
   </form>

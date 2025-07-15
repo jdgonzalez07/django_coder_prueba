@@ -6,7 +6,7 @@ from datetime import datetime
 from django.http import HttpResponse
 from django.template import Template, Context, loader
 from inicio.models import Auto
-
+from inicio.forms import FormularioCrearAuto, FormularioBusqueda
 
 def inicio(request):
     # return HttpResponse("<h1>Estoy en el inicio</h1>")
@@ -99,11 +99,37 @@ def crear_auto(request):
     print("###################################")
     print(request.POST)
     
-    if request.GET == 'POST':
-        auto1 = Auto(marca=request.POST['marca'], modelo=request.POST['modelo'])
-        auto1.save()
+    # SIN FORMULARIOS DE DJANGO
+    # if request.method == 'POST':
+    #     auto1 = Auto(marca=request.POST['marca'], modelo=request.POST['modelo'])
+    #     auto1.save()
         
-        return render(request, 'inicio/creacion_finalizada.html',{'auto'})
+    #     return render(request, 'inicio/creacion_finalizada.html',{'auto':auto1})
         
-    return render(request, 'inicio/crear_auto.html',{})
+    # return render(request, 'inicio/crear_auto.html',{})
     
+    
+    # CON FORMULARIO DE DJANGO
+    # FormularioCrearAuto
+    
+    if request.method == "POST":
+        formulario = FormularioCrearAuto(request.POST)
+        if formulario.is_valid():
+            nueva_data = formulario.cleaned_data
+            auto1 = Auto(marca=nueva_data['marca'], modelo=nueva_data['modelo'])
+            auto1.save()
+            return render(request, 'inicio/creacion_finalizada.html',{'auto':auto1})
+    else:
+        formulario = FormularioCrearAuto()
+        return render(request, 'inicio/crear_auto.html', {'formulario':formulario})
+
+
+def listado_autos(request):
+    formulario = FormularioBusqueda(request.GET)
+    if formulario.is_valid():
+        marca_a_buscar = formulario.cleaned_data['marca']
+        modelo_a_buscar = formulario.cleaned_data['modelo']
+        autos = Auto.objects.filter(marca__icontains = marca_a_buscar, modelo__icontains = modelo_a_buscar)
+    
+    
+    return render(request, 'inicio/listado_autos.html', {'autos':autos, 'formulario':formulario})
