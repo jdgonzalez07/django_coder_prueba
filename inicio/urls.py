@@ -1,5 +1,5 @@
 from django.urls import path
-from inicio.views import saludo, saludo_template, saludo_con_cargador, saludo_con_render, condicion_y_bucle, inicio, crear_auto, listado_autos
+from inicio.views import saludo, saludo_template, saludo_con_cargador, saludo_con_render, condicion_y_bucle, inicio, crear_auto, listado_autos, ver_auto, eliminar_auto, actualizar_auto
 
 app_name = 'inicio'
 
@@ -12,5 +12,11 @@ urlpatterns = [
     path('saludo/<str:nombre>/<str:apellido>/', saludo_con_render, name='saludo_template'),
     path('template-prueba/', condicion_y_bucle, name='template_prueba'),
     path('autos/', listado_autos, name = 'listado_autos' ),
-    path('autos/crear', crear_auto, name = 'crear_auto' )
+    path('autos/crear', crear_auto, name = 'crear_auto' ),
+    path('autos/<int:id_auto>', ver_auto, name = 'ver_auto' ),
+    path('autos/<int:id_auto>/eliminar', eliminar_auto, name = 'eliminar_auto' ),
+    path('autos/<int:id_auto>/actualizar', actualizar_auto, name = 'actualizar_auto' )
+    
+    
+    
 ]

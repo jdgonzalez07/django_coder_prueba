@@ -1,12 +1,12 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from datetime import datetime
 from django.http import HttpResponse
 from django.template import Template, Context, loader
 from inicio.models import Auto
-from inicio.forms import FormularioCrearAuto, FormularioBusqueda
+from inicio.forms import FormularioCrearAuto, FormularioBusqueda, FormularioActualizarAuto
 
 def inicio(request):
     # return HttpResponse("<h1>Estoy en el inicio</h1>")
@@ -133,3 +133,38 @@ def listado_autos(request):
     
     
     return render(request, 'inicio/listado_autos.html', {'autos':autos, 'formulario':formulario})
+
+
+def ver_auto(request, id_auto):
+    
+    auto = Auto.objects.get(id=id_auto)
+    
+    return render(request, 'inicio/ver_auto.html',{'auto':auto})
+
+def eliminar_auto(request, id_auto):
+    
+    auto = Auto.objects.get(id=id_auto)
+    auto.delete()
+    
+    return redirect('inicio:listado_autos')
+
+def actualizar_auto(request, id_auto):
+    
+    auto_actualizar = Auto.objects.get(id=id_auto)
+    
+    if request.method == "POST":
+        formulario = FormularioActualizarAuto(request.POST)
+        if formulario.is_valid():
+            marca = formulario.cleaned_data['marca']
+            modelo = formulario.cleaned_data['modelo']
+            auto_actualizar.marca = marca
+            auto_actualizar.modelo = modelo
+            
+            auto_actualizar.save()
+            
+            return redirect('inicio:ver_auto', id_auto= auto_actualizar.id)
+           
+    else:
+        formulario = FormularioActualizarAuto(initial={'marca': auto_actualizar.marca, 'modelo': auto_actualizar.modelo})
+    
+    return render(request, 'inicio/actualizar_auto.html', {'formulario': formulario, 'auto': auto_actualizar})
