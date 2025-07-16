@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.template import Template, Context, loader
 from inicio.models import Auto
 from inicio.forms import FormularioCrearAuto, FormularioBusqueda, FormularioActualizarAuto
+from django.contrib.auth.decorators import login_required
 
 def inicio(request):
     # return HttpResponse("<h1>Estoy en el inicio</h1>")
@@ -89,7 +90,7 @@ def condicion_y_bucle(request):
     
     return render(request,'subcarpeta/condicion_y_bucle.html',{"listado_de_numeros":[1,2,4,5,33,2,4,5,3]})
 
-
+@login_required
 def crear_auto(request):
     
     print("###################################")
@@ -123,7 +124,7 @@ def crear_auto(request):
         formulario = FormularioCrearAuto()
         return render(request, 'inicio/crear_auto.html', {'formulario':formulario})
 
-
+@login_required
 def listado_autos(request):
     formulario = FormularioBusqueda(request.GET)
     if formulario.is_valid():
@@ -134,7 +135,7 @@ def listado_autos(request):
     
     return render(request, 'inicio/listado_autos.html', {'autos':autos, 'formulario':formulario})
 
-
+@login_required
 def ver_auto(request, id_auto):
     
     auto = Auto.objects.get(id=id_auto)
@@ -148,6 +149,7 @@ def eliminar_auto(request, id_auto):
     
     return redirect('inicio:listado_autos')
 
+@login_required
 def actualizar_auto(request, id_auto):
     
     auto_actualizar = Auto.objects.get(id=id_auto)
