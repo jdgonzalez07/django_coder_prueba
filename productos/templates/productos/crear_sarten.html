@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title_text %}
+  Crear sarten
+{% endblock %}
+{% block h1_text %}
+  Crear sartén
+{% endblock %}
+
+{% block main %}
+  <form action={% url "productos:crear_sarten" %} method="POST">
+    {% csrf_token %}
+
+    {{ form }}
+    <input type="submit" value="Crear" />
+ 
+  </form>
+{% endblock %}

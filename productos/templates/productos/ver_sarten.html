@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title_text %}
+  Detalle sarten
+{% endblock %}
+{% block h1_text %}
+  Sartén {{ sarten.id }}
+{% endblock %}
+
+{% block main %}
+  <ul>
+    <li>Marca: {{ sarten.marca }}</li>
+    <li>descripcion: {{ sarten.descripcion }}</li>
+    <li>fecha: {{ sarten.fecha }}</li>
+  </ul>
+{% endblock %}
