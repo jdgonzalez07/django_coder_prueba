@@ -6,6 +6,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from .models import Sarten
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def sartenes(request):
     return HttpResponse("Sartenesss")
@@ -27,12 +28,13 @@ class VerSarten(DetailView):
     model = Sarten
     template_name = "productos/ver_sarten.html"
 
-class ActualizarSarten(UpdateView):
+class ActualizarSarten(LoginRequiredMixin,UpdateView):
     model = Sarten
     template_name = "productos/actualizar_sarten.html"
     fields = ['marca', 'descripcion']
     success_url = reverse_lazy('productos:listado_de_sartenes')
 
-class EliminarSarten(DeleteView):
+class EliminarSarten(LoginRequiredMixin,DeleteView):
     model = Sarten
     template_name = "productos/eliminar_sarten.html"
+    success_url = reverse_lazy('productos:listado_de_sartenes')

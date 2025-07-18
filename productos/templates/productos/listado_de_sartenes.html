@@ -25,7 +25,7 @@
           {{ sarten }}
           | <a href={% url "productos:ver_sarten" sarten.id %}>Ver mas</a>
           | <a href={% url "productos:actualizar_sarten" sarten.id %}>Actualizar</a>
-          {% comment %}  | <a href={% url "inicio:eliminar_sarten" sarten.id %}>Eliminar</a> |  {% endcomment %}
+           | <a href={% url "productos:eliminar_sarten" sarten.id %}>Eliminar</a> | 
         </li>
       {% endfor %}
     </ul>

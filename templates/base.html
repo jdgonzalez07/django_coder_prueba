@@ -36,7 +36,14 @@
             {% endif %}
 
 
-            <!-- <a class="btn btn-primary" href="#signup">Sign Up</a> -->
+             <a class="btn btn-primary" href={% url "usuarios:login" %}>Login</a> 
+
+              <form action={% url "usuarios:logout" %} method="post">
+                                {% csrf_token %}
+                                <input class="btn btn-danger nav-link py-3 px-0 px-lg-3 rounded" style='color:white' type="submit" value="LOGOUT">
+                            </form>
+
+             {% comment %} <a class="btn btn-primary" href={% url "usuarios:logout" %}>Logout</a>  {% endcomment %}
         </div>
     </nav>
     <!-- Masthead-->
