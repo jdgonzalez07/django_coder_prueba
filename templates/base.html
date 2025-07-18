@@ -33,17 +33,15 @@
             <a class="navbar-brand" href={% url "inicio:crear_auto" %}>Crear auto</a>
             <a class="navbar-brand" href={% url "inicio:listado_autos" %}>Autos</a>
             <a class="navbar-brand" href={% url "productos:listado_de_sartenes" %}>Sartenes</a>
-            {% endif %}
-
-
-             <a class="btn btn-primary" href={% url "usuarios:login" %}>Login</a> 
-
-              <form action={% url "usuarios:logout" %} method="post">
+            <form action={% url "usuarios:logout" %} method="post">
                                 {% csrf_token %}
                                 <input class="btn btn-danger nav-link py-3 px-0 px-lg-3 rounded" style='color:white' type="submit" value="LOGOUT">
                             </form>
+            {% else %}
+             <a class="btn btn-primary" href={% url "usuarios:login" %}>Login</a> 
+            {% endif %}
 
-             {% comment %} <a class="btn btn-primary" href={% url "usuarios:logout" %}>Logout</a>  {% endcomment %}
+             
         </div>
     </nav>
     <!-- Masthead-->
