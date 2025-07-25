@@ -33,12 +33,19 @@
             <a class="navbar-brand" href={% url "inicio:crear_auto" %}>Crear auto</a>
             <a class="navbar-brand" href={% url "inicio:listado_autos" %}>Autos</a>
             <a class="navbar-brand" href={% url "productos:listado_de_sartenes" %}>Sartenes</a>
+            <a class="navbar-brand btn btn-warning" href={% url "usuarios:editar_perfil" %}>
+                <img src={{request.user.infoextra.avatar.url}} alt="imagen-perfil" height="40px">
+
+                {{request.user.username}}
+                
+            </a>
             <form action={% url "usuarios:logout" %} method="post">
                                 {% csrf_token %}
                                 <input class="btn btn-danger nav-link py-3 px-0 px-lg-3 rounded" style='color:white' type="submit" value="LOGOUT">
                             </form>
             {% else %}
              <a class="btn btn-primary" href={% url "usuarios:login" %}>Login</a> 
+             <a class="btn btn-secondary" href={% url "usuarios:registro" %}>Registrarse</a> 
             {% endif %}
 
              
